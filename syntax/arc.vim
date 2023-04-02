@@ -2,76 +2,78 @@ if exists("b:current_syntax")
   finish
 endif
 
+" Keywords
+syntax keyword arcAwsKeyword apigateway architecture concurrency fifo memory provisionedConcurrency region runtime storage timeout
 syntax keyword arcBoolean true false
+syntax keyword arcCreateKeyword autocreate templates
 syntax keyword arcHttpKeyword method src
 syntax keyword arcHttpVerb get post patch put delete options head any
-syntax keyword arcAwsKeyword apigateway architecture region runtime storage
+syntax keyword arcSandboxKeyword env livereload ports useAWS
 syntax keyword arcScheduledKeyword cron rate
-syntax keyword arcProxyKeyword testing staging production
 syntax keyword arcStaticKeyword compression fingerprint folder ignore prefix prune spa
+syntax keyword arcTableKeyword encrypt name PointInTimeRecovery projection
 
-syntax match arcComment "\v#.*$"
-syntax match arcAwsKeyword "\v<base-runtime>"
-syntax match arcPragma "@.*$"
-" syntax match arcPragma  "@\%(\h\|[^\x00-\x7F]\)\%(\w\|[^\x00-\x7F]\)*"
-" syntax match arcPragma  "@\%(\h\|[^\x00-\x7F]\)\%(\w\|[^\x00-\x7F]\)*"
-" syntax match arcNumber "\%(\%(\w\|[^\x00-\x7F]\|[]})\"']\s*\)\@<!-\)\=\<\%(0[dD]\)\=\%(0\|[1-9]\d*\%(_\d\+\)*\)r\=i\=\>"  display
-syntax match arcNumber "\v%(%(w|[^x00-x7F]|[]})"']s*)@<!-)=<%(0[dD])=%(0|[1-9]d*%(_d+)*)r=i=>" display
-
-" syntax match arcAwsKeyword "\v(-.*)@<!policies"	" "policies" which is not after "-"
-" syntax match arcAwsKeyword "\v<policies>(-)@!"		" any "policies" not followed by "-"
-"
-" Ignore these keywords in any kebab-case word
+" Keywords but ignored in kebab-case
 syntax match arcAwsKeyword "\v<bucket>(-)@!&(-.*)@<!bucket"
 syntax match arcAwsKeyword "\v<layers>(-)@!&(-.*)@<!layers"
 syntax match arcAwsKeyword "\v<policies>(-)@!&(-.*)@<!policies"
 syntax match arcAwsKeyword "\v<profile>(-)@!&(-.*)@<!profile"
+syntax match arcProxyKeyword "\v<testing>(-)@!&(-.*)@<!testing"
+syntax match arcProxyKeyword "\v<staging>(-)@!&(-.*)@<!staging"
+syntax match arcProxyKeyword "\v<production>(-)@!&(-.*)@<!production"
+syntax match arcTableSpecial "\v<table>(-)@!&(-.*)@<!table"
 
+" Miscallaneous Keywords
+syntax match arcAwsKeyword "\v<base-runtime>"
+syntax match arcStaticKeyword "\v<no-hydrate>"
+" syntax match arcEnvVariable "\<\h\w*\ze="
+syntax match arcEnvVariable "\v[A-Z_].* "
+
+" Special keywords
+syntax match arcTableSpecial "*String"
+syntax match arcTableSpecial "*\*String"
+syntax match arcTableSpecial "*Number"
+syntax match arcTableSpecial "*\*Number"
+
+syntax match arcComment "\v#.*$"
+syntax match arcNumber "\v(\d* )"
+syntax match arcNumber "\v( \d*)"
+syntax match arcPragma  "\v\@<app>"
+syntax match arcPragma  "\v\@<aws>"
+syntax match arcPragma  "\v\@<create>"
+syntax match arcPragma  "\v\@<env>"
+syntax match arcPragma  "\v\@<events>"
+syntax match arcPragma  "\v\@<http>"
+syntax match arcPragma  "\v\@<macros>"
+syntax match arcPragma  "\v\@<plugins>"
+syntax match arcPragma  "\v\@<proxy>"
+syntax match arcPragma  "\v\@<queues>"
+syntax match arcPragma  "\v\@<sandbox>"
+syntax match arcPragma  "\v\@<sandbox-startup>"
+syntax match arcPragma  "\v\@<scheduled>"
+syntax match arcPragma  "\v\@<shared>"
+syntax match arcPragma  "\v\@<static>"
+syntax match arcPragma  "\v\@<tables>"
+syntax match arcPragma  "\v\@<tables-indexes>"
+syntax match arcPragma  "\v\@<tables-streams>"
+syntax match arcPragma  "\v\@<views>"
+syntax match arcPragma  "\v\@<ws>"
+
+highlight link arcAwsKeyword Keyword
+highlight link arcAwsSpecial SpecialChar
+highlight link arcCreateKeyword Keyword
 highlight link arcBoolean Boolean
 highlight link arcComment Comment
+highlight link arcEnvVariable String
 highlight link arcHttpVerb String
 highlight link arcNumber Number
 highlight link arcPragma Include
 highlight link arcHttpKeyword SpecialChar
-highlight link arcAwsKeyword Keyword
+highlight link arcSandboxKeyword Keyword
 highlight link arcScheduledKeyword SpecialChar
 highlight link arcStaticKeyword Keyword
 highlight link arcProxyKeyword Keyword
+highlight link arcTableKeyword Keyword
+highlight link arcTableSpecial SpecialChar
 
 let b:current_syntax = "arc"
-
-" syntax match arcBoolean "\%#=1\<\%(true\|false\)\>[?!]\@!"
-" syntax match arcComment "\v#.*$"
-" syntax match arcHttpKeyword "\v<method>"
-" syntax match arcHttpKeyword "\v<src>"
-" syntax match arcHttpVerb "\v<get>"
-" syntax match arcHttpVerb "\v<post>"
-" syntax match arcHttpVerb "\v<patch>"
-" syntax match arcHttpVerb "\v<put>"
-" syntax match arcHttpVerb "\v<delete>"
-" syntax match arcHttpVerb "\v<options>"
-" syntax match arcHttpVerb "\v<head>"
-" syntax match arcHttpVerb "\v<any>"
-" syntax match arcKeyword "\v<apigateway>"
-" syntax match arcKeyword "\v<architecture>"
-" syntax match arcKeyword "\v<base-runtime>"
-" syntax match arcKeyword "\v<bucket>"
-" syntax match arcKeyword "\v<layers>"
-" syntax match arcKeyword "\v<policies>"
-" syntax match arcKeyword "\v<production>"
-" syntax match arcKeyword "\v<profile>"
-" syntax match arcKeyword "\v<region>"
-" syntax match arcKeyword "\v<runtime>"
-" syntax match arcKeyword "\v<staging>"
-" syntax match arcKeyword "\v<storage>"
-" syntax match arcKeyword "\v<testing>"
-" syntax match arcPragma  "@\%(\h\|[^\x00-\x7F]\)\%(\w\|[^\x00-\x7F]\)*"
-" syntax match arcScheduledKeyword "\v<rate>"
-" syntax match arcScheduledKeyword "\v<cron>"
-" syntax match arcStaticKeyword "\v<compression>"
-" syntax match arcStaticKeyword "\v<fingerprint>"
-" syntax match arcStaticKeyword "\v<folder>"
-" syntax match arcStaticKeyword "\v<ignore>"
-" syntax match arcStaticKeyword "\v<prune>"
-" syntax match arcStaticKeyword "\v<prefix>"
-" syntax match arcStaticKeyword "\v<spa>"
