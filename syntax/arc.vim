@@ -12,26 +12,15 @@ highlight link arcBacktickQuotedStrings Keyword
 highlight link arcNumber Number
 highlight link arcProperty Type
 
-syntax match arcKeyword "\v^[A-Za-z0-9-_./:]*"
+syntax keyword arcBoolean true false
+syntax match arcKeyword "\v^[a-zA-Z0-9-_./:]*"
 syntax match arcComment "\v#.*$"
 syntax match arcPragma "\v^\@[a-zA-Z0-9-_]*"
 syntax match arcProperty "\v^\s{2}[a-zA-Z-_.]*\s"
-
-" let numbers = {
-"   scope: 'number',
-"   begin: '(?<=\\s|^|\\G)((\\d*[.])?\\d+)(?=\\s|#|$)',
-"   end: '(?=\\s|#|$)'
-" }
-syntax match arcNumber "\v((\d*[.])?\d+)(\s|#|$)"
-" syntax region arcNumber start="\v(\s|^)\d" end="\v(\s|#|$)"
-" syntax match arcNumber "\v(\s|^)\d*"
-" syntax match arcNumber "\v(\d*\s)"
-" syntax match arcNumber "\v(\s\d*)"
-" syntax region arcNumber start="\v(\s|^)\d" end="\v(\s\d*|#|$)"
-
-
-
-
+syntax match arcNumber "\v[a-zA-Z0-9-_:.]@<!((\d*[.])?\d+)"
+syntax region arcDoubleQuotedStrings start=/\v"/ skip=/\v\\./ end=/\v"/
+syntax region arcSingleQuotedStrings start=/\v'/ skip=/\v\\./ end=/\v'/
+syntax region arcBacktickQuotedStrings start=/\v`/ skip=/\v\\./ end=/\v`/
 
 " let doubleQuotedStrings = {
 "   scope: 'string',
@@ -40,7 +29,7 @@ syntax match arcNumber "\v((\d*[.])?\d+)(\s|#|$)"
 "   contains: [ { begin: '\\\\"' } ]
 " }
 " syntax region arcDoubleQuotedStrings start='(?<=\s|^|\G)(")' end='(")'
-syntax region arcDoubleQuotedStrings start=/\v"/ skip=/\v\\./ end=/\v"/
+" syntax region arcDoubleQuotedStrings start=/\v"/ skip=/\v\\./ end=/\v"/
 
 
 " let singleQuotedStrings = {
@@ -49,7 +38,7 @@ syntax region arcDoubleQuotedStrings start=/\v"/ skip=/\v\\./ end=/\v"/
 "   end: "(')",
 "   contains: [ { begin: "\\\\'" } ]
 " }
-syntax region arcDoubleQuotedStrings start=/\v'/ skip=/\v\\./ end=/\v'/
+" syntax region arcSingleQuotedStrings start=/\v'/ skip=/\v\\./ end=/\v'/
 
 
 " let backtickQuotedStrings = {
@@ -58,7 +47,7 @@ syntax region arcDoubleQuotedStrings start=/\v'/ skip=/\v\\./ end=/\v'/
 "   end: '(`)',
 "   contains: [ { begin: '\\\\`' } ]
 " }
-syntax region arcDoubleQuotedStrings start=/\v`/ skip=/\v\\./ end=/\v`/
+" syntax region arcBacktickQuotedStrings start=/\v`/ skip=/\v\\./ end=/\v`/
 
 " let booleans = {
 "   scope: 'literal',
@@ -66,7 +55,7 @@ syntax region arcDoubleQuotedStrings start=/\v`/ skip=/\v\\./ end=/\v`/
 "   end: '(?=\\s|#|$)'
 " }
 " syntax region arcBoolean start="\v(\s|^|\G)(true|false)" end="\v(\s|#|$)"
-syntax keyword arcBoolean true false
+" syntax keyword arcBoolean true false
 
 " syntax keyword arcBoolean true false
 " syntax keyword arcHttpVerb get post patch put delete options head any
